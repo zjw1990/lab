@@ -7,6 +7,10 @@ public class Lab2 extends JPanel implements KeyListener {
 	// -------------------------------------------------------
 	// Useful Functions for Drawing things on the screen
 	// -------------------------------------------------------
+	int x = 0;
+	int y = 0;
+	int m = 1;
+	int n = 1;
 
 	// My Definition of some colors
 	Color black = Color.BLACK;
@@ -171,8 +175,15 @@ public class Lab2 extends JPanel implements KeyListener {
 
 		while(true) {
 			// Control the framerate (30 fps)
-			double dt = simpleFramerate(30);
 
+			double dt = simpleFramerate(30);
+			x = x + m;
+			y = y + n;
+
+			if (x >= 450){m = -m;}
+			if (x < 0){ m = 1;}
+			if (y >= 425){ n = -n; }
+			if (y <0){n = 1;}
 			// Update the Game
 			update(dt);
 
@@ -181,8 +192,16 @@ public class Lab2 extends JPanel implements KeyListener {
 		}
 	}
 
+	@Override
+	public void paint(Graphics g) {
+		super.paint(g);
+		g.setColor(Color.BLACK);
+		g.fillOval(x, 25 + y, 50, 50);
+	}
+
 	// Updates the display
 	public void update(double dt) {
+		dt = dt+1;
 		// This function updates your game
 	}
 
@@ -196,6 +215,13 @@ public class Lab2 extends JPanel implements KeyListener {
 
 	// Called whenever the user presses a key
 	public void keyPressed(KeyEvent e) {
+    	switch (e.getKeyCode()){
+			case KeyEvent.VK_DOWN: n= -n;break;
+			case KeyEvent.VK_UP: n = -n; break;
+			case KeyEvent.VK_LEFT: m = -m;break;
+			case KeyEvent.VK_RIGHT: m= -m; break;
+
+		}
 		
 	}
 
